@@ -13,7 +13,7 @@ User: root\
 Passwort: nao\
 \
 Datenbank: nao\
-Tabellen: answers, generic_terms, synonyms\
+Tabellen: answers, generic_terms, synonyms
 
 ## Transcriber
 image: deniskasak/uni-nao-transcriber\
@@ -26,5 +26,5 @@ Der Transcriber nutzt whisper mit WHISPER_MODEL, um die gesendete Audiodatei zu 
 \
 POST /\
 Audiodatei als file mitsenden\
-Return: Text\
+Return: Text
 
