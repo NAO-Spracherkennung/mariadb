@@ -15,10 +15,11 @@ import requests
 TRANSCRIBER_HOST = os.getenv("TRANSCRIBER_HOST", "127.0.0.1")
 TRANSCRIBER_PORT = os.getenv("TRANSCRIBER_PORT", "5002")
 
-app = Flask(__name__)
-
 cursor = getDbConnection()
 weighting_setup(cursor)
+app = Flask(__name__)
+
+
 
 
 @app.route('/', methods=['GET'])
@@ -75,3 +76,4 @@ def post_request():
     answer = db_connector.get_answer(caseID, cursor)
     if answer is None:
         return jsonify("-1")
+    return answer
