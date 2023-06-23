@@ -169,8 +169,6 @@ def insert_answers(case_id: int, primary_keywords: str, secondary_keywords: str,
     """
     cur.execute("INSERT INTO matching_table (caseID, primary_keywords, secondary_keywords, answer) VALUES (?, ?, ?, ?)",
                 (case_id, primary_keywords, secondary_keywords, answer))
-    print("Answer inserted with case_id=" + str(case_id) + ", primary_keywords=" + primary_keywords +
-          ", secondary_keywords=" + secondary_keywords + " and answer=" + answer)
 
 
 # TODO: Add checks for arguments to catch wrong data
@@ -182,7 +180,6 @@ def insert_generic_terms(id: int, generic_term: str, cur:Cursor):
     :return:
     """
     cur.execute("INSERT INTO generic_terms (id, generic_term) VALUES (?, ?)", (id, generic_term))
-    print("Generic term inserted with id=" + str(id) + " and generic_term=" + generic_term)
 
 
 # TODO: Add checks for arguments to catch wrong data
@@ -194,4 +191,7 @@ def insert_synonyms(synonym: str, id: int, cur:Cursor):
     :return:
     """
     cur.execute("INSERT INTO synonyms (synonym, id) VALUES (?, ?)", (synonym, id))
-    print("Synonym inserted with synonym=" + synonym + " and id=" + str(id))
+
+def insert_weight(keyword: str, weight: float, cur:Cursor):
+    cur.execute("INSERT INTO weights (keyword, weight) VALUES (?, ?)", (keyword, weight))
+    print("keyword=" + keyword + " with weight=" + str(weight) + " inserted")
