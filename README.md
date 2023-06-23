@@ -26,5 +26,23 @@ Der Transcriber nutzt whisper mit WHISPER_MODEL, um die gesendete Audiodatei zu 
 \
 POST /\
 Audiodatei als file mitsenden\
-Return: Text
+Return: transkribierter Text
 
+## Webserver
+image: deniskasak/uni-nao-webserver\
+port: 5000\
+\
+Umgebungsvariable:\
+TRANSCRIBER_HOST\
+TRANSCRIBER_PORT\
+DB_HOST\
+DB_PORT\
+DB_USER\
+DB_PASS\
+DB_DATABASE\
+\
+Der Webserver nimmt die Frage (Audiodatei) von NAO entgegen und sendet eine Antwort (Text) zurück\
+\
+POST /\
+Audiodatei als file mitsenden\
+Return: Antwort-Text
