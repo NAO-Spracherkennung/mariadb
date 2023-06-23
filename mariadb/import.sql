@@ -151,3 +151,16 @@ INSERT INTO synonyms VALUES
 	('bewirbt',17),
 	('informatikstudiengang',18),
 	('informatikstudium',18);
+
+
+/* Create table matching_table with columns caseID, primary_keywords, secondary_keywords, answer */
+CREATE TABLE matching_table (
+	caseID INT,
+	primary_keywords TEXT,
+	secondary_keywords TEXT,
+	answer TEXT);
+
+/* Create table weights with columns keyword, weight */
+CREATE TABLE weights (
+	keyword text,
+	`weight` float);
