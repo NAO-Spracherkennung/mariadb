@@ -17,7 +17,7 @@ Tabellen: answers, generic_terms, synonyms\
 
 ## Transcriber
 image: deniskasak/uni-nao-transcriber\
-port: 5000
+port: 5000\
 \
 Umgebungsvariablen:
 WHISPER_MODEL = tiny, small, base, medium, large
