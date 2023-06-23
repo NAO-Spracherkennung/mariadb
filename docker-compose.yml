@@ -3,14 +3,22 @@ services:
   mariadb:
     image: deniskasak/uni-nao:mariadb
     restart: always
-    ports:
-      - "3306:3306"
+    #ports:
+    #  - "3306:3306"
+
+  transcriber:
+    image: deniskasak/uni-nao:transcriber
+    restart: always
+    #ports:
+    #  - "5002:5000"
+    environment:
+      WHISPER_MODEL: base
 
   webserver:
     image: deniskasak/uni-nao:webserver
     restart: always
     depends_on:
-      - mariadb
+      - transcriber
     ports:
       - "5001:5000"
     environment:
@@ -21,12 +29,3 @@ services:
       DB_USER: root
       DB_PASS: nao
       DB_DATABASE: nao
-  transcriber:
-    image: deniskasak/uni-nao:transcriber
-    restart: always
-    depends_on:
-      - webserver
-    ports:
-      - "5002:5000"
-    environment:
-      WHISPER_MODEL: base
