@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS `nao` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `nao`;
 
 /* Create table answers with columns caseID, primary_keywords, secondary_keywords, answer */
-CREATE TABLE IF NOT EXISTS `answers` (
+CREATE TABLE IF NOT EXISTS `matching_table` (
   `caseID` INT NOT NULL,
   `primary_keywords` varchar(1000) NOT NULL,
   `secondary_keywords` varchar(1000) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
 ) DEFAULT CHARSET=utf8;
 
 /* Insert data into answers */
-INSERT INTO answers VALUES
+INSERT INTO matching_table VALUES
     (1,'studiengang,informieren,studium','wie,und,wo,über,hwr,kenntnis,dual','Es gibt eine Übersicht aller Studiengänge auf der Webseite der HWR Berlin. Außerdem findest du dort alle Bewerbungs- und Zulassungsvoraussetzungen. Bei Fragen zur Studienorientierung und Studienwahl kannst du dich an die Allgemeine Studienberatung wenden. Zu vielen Themen bietet auch der Studierendenservice der HWR Berlin regelmäßig Online-Veranstaltungen an, bei denen du ins Gespräch kommen kannst. Und in unserer Instathek kannst du Studierende der HWR Berlin treffen und Infos aus erster Hand bekommen.'),
 	(2,'voraussetzung,gelten,brauchen,bedingung','welch,studiengang,informatik,informatikstudium,mitbringen,studieren,wissen','Du benötigst eine anerkannte Hochschulzugangsberechtigung. Diese wären die allgemeine Hochschulreife, also das Abitur, eine fachgebundene Hochschulreife oder Fachhochschulreife, auch Fachabitur genannt oder eine andere Hochschulzugangsberechtigung. Außerdem solltest du auch Interesse am Fach mitbringen.'),
 	(3,'bewerben,studium,studiengang','wie,und,wo,für,an,hwr,informatikstudium','Es gibt unterschiedliche Bewerbungsverfahren. Es hängt von deinem Schulabschluss, Fachsemester und Studienziel ab, auf welchem Weg du dich an der Hochschule für Wirtschaft und Recht Berlin für ein Bachelorstudium bewirbst. Ob es dual, normal, ein Bachelor oder Masterstudium werden soll ist ebenfalls ausschlaggebend. Auf dem Onlineportal der HWR gibt es genauere Infos dazu.'),
@@ -152,13 +152,6 @@ INSERT INTO synonyms VALUES
 	('informatikstudiengang',18),
 	('informatikstudium',18);
 
-
-/* Create table matching_table with columns caseID, primary_keywords, secondary_keywords, answer */
-CREATE TABLE matching_table (
-	caseID INT,
-	primary_keywords TEXT,
-	secondary_keywords TEXT,
-	answer TEXT);
 
 /* Create table weights with columns keyword, weight */
 CREATE TABLE weights (
