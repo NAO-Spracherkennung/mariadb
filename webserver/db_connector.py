@@ -105,4 +105,3 @@ def get_weights(cur:Cursor):
 
 def insert_weight(keyword: str, weight: float, cur:Cursor):
     cur.execute("INSERT INTO weights (keyword, weight) VALUES (?, ?)", (keyword, weight))
-    print("keyword=" + keyword + " with weight=" + str(weight) + " inserted")
