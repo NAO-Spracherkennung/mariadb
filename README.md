@@ -14,3 +14,17 @@ Passwort: nao\
 \
 Datenbank: nao\
 Tabellen: answers, generic_terms, synonyms\
+
+## Transcriber
+image: deniskasak/uni-nao-transcriber\
+port: 5000
+\
+Umgebungsvariablen:
+WHISPER_MODEL = tiny, small, base, medium, large
+\
+Der Transcriber nutzt whisper mit WHISPER_MODEL, um die gesendete Audiodatei zu transkribieren\
+\
+POST /\
+Audiodatei als file mitsenden\
+Return: Text\
+
