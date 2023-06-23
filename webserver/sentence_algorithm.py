@@ -6,25 +6,12 @@ import word
 def sentence_detection(sentence):
     global token
     global found_words
-    new_sentence = ""
-
+    
     found_words = []
 
     for token in sentence:
         check_word()
-    #print("Drin geblieben:"
-    #      "\nPos - Tag - Lemma \n")
-    #for checked_word in found_words:
-    #    print(word.Word.get_word(checked_word))
-    #print("-----------------------"
-    #      "\nOriginalsatz:"
-    #      "\n" + str(sentence) +
-    #      "\n-----------------------")
-    print("Neuer Satz:")
-    for checked_word in found_words:
-        new_sentence = new_sentence + " " + word.Word.get_lemma(checked_word)
-    print(new_sentence + "\n-----------------------")
-
+    
     #Build list of words which can be returned
     words = []
     for wd in found_words:

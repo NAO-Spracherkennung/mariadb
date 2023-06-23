@@ -25,7 +25,6 @@ def calculate_weight(cur: Cursor) -> list:
 def distinct_list(weightings: list, keyword: str) -> list:
     if len(weightings) == 0:
         dict_record = {"keyword": keyword, "count": 1}
-        print(dict_record)
         weightings.append(dict_record)
         return weightings
     else:
@@ -42,6 +41,5 @@ def distinct_list(weightings: list, keyword: str) -> list:
 
 def setup(cur: Cursor):
     weights = calculate_weight(cur)
-    print(weights)
     for weight in weights:
         db_connector.insert_weight(weight["keyword"], weight["count"], cur)
