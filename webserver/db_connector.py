@@ -6,60 +6,6 @@ import json
 from mariadb import Cursor
 
 
-# TODO: Add check for empty list, raise EmptyListError
-# TODO: change output to real json object
-def get_all_synonyms(cur:Cursor) -> str:
-    """Return all synonyms
-
-    ADD DESCRIPTION
-
-    :return: JSON as string
-    :raise
-    """
-    cur.execute("SELECT synonym, id FROM synonyms ORDER BY id")
-    syn_list = []
-    for synonym, syn_id in cur:
-        syn_list.append({'synonym': synonym, 'id': syn_id})
-    json_str = json.dumps(syn_list)
-    return json_str
-
-
-# TODO: add checks for wrong returns, raise Error
-# TODO: change output to real json object
-def get_all_generic_terms(cur:Cursor) -> str:
-    """Return all generic terms
-
-    ADD DESCRIPTION
-
-    :return: JSON as string
-    """
-    cur.execute("SELECT id, generic_term FROM generic_terms ORDER BY id")
-    gt_list = []
-    for gt_id, generic_term in cur:
-        gt_list.append({'id': gt_id, 'generic_term': generic_term})
-    json_str = json.dumps(gt_list)
-    return json_str
-
-
-# TODO: add checks for wrong returns, raise error
-# TODO: change output to real json object
-def get_all_answers(cur:Cursor):
-    """Return all answers
-
-    ADD DESCRIPTION
-
-    :return: JSON as string
-    """
-    cur.execute("SELECT caseID, primary_keywords, secondary_keywords, answer FROM matching_table ORDER BY caseID")
-    ans_list = []
-    for case_id, primary_keywords, secondary_keywords, answer in cur:
-        ans_list.append(
-            {'caseID': case_id, 'primary_keywords': primary_keywords, 'secondary_keywords': secondary_keywords,
-             'answer': answer})
-    json_str = json.dumps(ans_list)
-    return json_str
-
-
 def get_all_keywords(cur:Cursor) -> list:
     cur.execute("SELECT primary_keywords, secondary_keywords FROM matching_table")
     keywords = []
@@ -156,41 +102,6 @@ def get_weights(cur:Cursor):
     json_str = json.dumps(weights)
     return json_str
 
-
-# TODO: Add checks for arguments to catch wrong data
-def insert_answers(case_id: int, primary_keywords: str, secondary_keywords: str, answer: str, cur:Cursor):
-    """Insert data into matching table
-
-    :param case_id: The id as integer of the specific answer.
-    :param primary_keywords: Each primary keyword as string to identify the answer.
-    :param secondary_keywords: Each secondary keyword as string to identify the answer.
-    :param answer: The answer as string which will be said by nao.
-    :return:
-    """
-    cur.execute("INSERT INTO matching_table (caseID, primary_keywords, secondary_keywords, answer) VALUES (?, ?, ?, ?)",
-                (case_id, primary_keywords, secondary_keywords, answer))
-
-
-# TODO: Add checks for arguments to catch wrong data
-def insert_generic_terms(id: int, generic_term: str, cur:Cursor):
-    """Insert data into generics terms table
-
-    :param id: ID as integer of the specific generic term.
-    :param generic_term: The generic term as string.
-    :return:
-    """
-    cur.execute("INSERT INTO generic_terms (id, generic_term) VALUES (?, ?)", (id, generic_term))
-
-
-# TODO: Add checks for arguments to catch wrong data
-def insert_synonyms(synonym: str, id: int, cur:Cursor):
-    """Insert data into synonyms table
-
-    :param synonym: Synonym as string.
-    :param id: ID as integer which will represent the generic term.
-    :return:
-    """
-    cur.execute("INSERT INTO synonyms (synonym, id) VALUES (?, ?)", (synonym, id))
 
 def insert_weight(keyword: str, weight: float, cur:Cursor):
     cur.execute("INSERT INTO weights (keyword, weight) VALUES (?, ?)", (keyword, weight))
