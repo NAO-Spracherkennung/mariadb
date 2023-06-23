@@ -19,8 +19,8 @@ Tabellen: answers, generic_terms, synonyms\
 image: deniskasak/uni-nao-transcriber\
 port: 5000\
 \
-Umgebungsvariablen:
-WHISPER_MODEL = tiny, small, base, medium, large
+Umgebungsvariablen:\
+WHISPER_MODEL = tiny, small, base, medium, large\
 \
 Der Transcriber nutzt whisper mit WHISPER_MODEL, um die gesendete Audiodatei zu transkribieren\
 \
