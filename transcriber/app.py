@@ -4,6 +4,21 @@ import os
 
 MODEL = os.environ['WHISPER_MODEL']
 
+
+def setup():
+
+    print("Downloading whisper model..."+MODEL)
+
+    # transcribes an empty audio file to download the model instead of downloading it on the first request
+    model = whisper.load_model(MODEL)
+    whisper.transcribe(model, "setup.m4a")
+
+    print("Setup finished")
+
+    return "OK"
+
+
+setup()
 app = Flask(__name__)
 
 
@@ -39,5 +54,7 @@ def transcribe():
         model=model,
         mel=mel,
         options=options)
+
+    print("Transkribierter Text:  "+result.text)
 
     return result.text
