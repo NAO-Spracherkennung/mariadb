@@ -21,6 +21,9 @@ def setup():
 setup()
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def test():
+    return "OK"
 
 @app.route('/', methods=['POST'])
 def transcribe():
