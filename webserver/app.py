@@ -17,6 +17,8 @@ TRANSCRIBER_PORT = os.getenv("TRANSCRIBER_PORT", "5002")
 
 cursor = getDbConnection()
 weighting_setup(cursor)
+# load german spacy model
+nlp = spacy.load("de_core_news_sm")
 app = Flask(__name__)
 
 
@@ -33,9 +35,6 @@ def post_request():
     # question is empty, respond with default message
     if question is None or len(question) == 0:
         return jsonify("This is the server of nao.")
-
-    # load german spacy model
-    nlp = spacy.load("de_core_news_sm")
 
     # annotes question with the german spacy model; adds tokens to words...
     processed_question = nlp(question)
