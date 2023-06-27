@@ -19,6 +19,7 @@ cursor = getDbConnection()
 weighting_setup(cursor)
 app = Flask(__name__)
 
+
 @app.route('/', methods=['POST'])
 def post_request():
 
@@ -26,12 +27,13 @@ def post_request():
     files = {'file': request.files['file']}
 
     # get audio transcription from transcriber
-    question = requests.post(url='http://'+TRANSCRIBER_HOST+':'+TRANSCRIBER_PORT+'/', files=files).text
+    question = requests.post(
+        url='http://'+TRANSCRIBER_HOST+':'+TRANSCRIBER_PORT+'/', files=files).text
 
     # question is empty, respond with default message
     if question is None or len(question) == 0:
         return jsonify("This is the server of nao.")
-    
+
     # load german spacy model
     nlp = spacy.load("de_core_news_sm")
 
@@ -52,10 +54,10 @@ def post_request():
     caseID = counter.count_ids(found_words, cursor)
     if caseID is None:
         return jsonify("Ich habe diese Frage nicht verstanden oder ich habe dazu leider keine Antwort.")
-    
+
     # get answer with caseID from database
     answer = db_connector.get_answer(caseID, cursor)
     if answer is None:
         return jsonify("-1")
-    
+
     return answer
