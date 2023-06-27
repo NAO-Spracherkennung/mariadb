@@ -12,7 +12,7 @@ def sentence_detection(sentence):
     #Build list of words which can be returned
     words = []
     for word in found_words:
-        words.append(word.Word.get_lemma(word))
+        words.append(Word.get_lemma(word))
     return words
 
 
