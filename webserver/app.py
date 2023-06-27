@@ -22,29 +22,40 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def post_request():
 
-    url = 'http://'+TRANSCRIBER_HOST+':'+TRANSCRIBER_PORT+'/'
+    # get audio with question from POST request
     files = {'file': request.files['file']}
-    question = requests.post(url, files=files).text
 
-    if question is None or len(question) < 1:
+    # get audio transcription from transcriber
+    question = requests.post(url='http://'+TRANSCRIBER_HOST+':'+TRANSCRIBER_PORT+'/', files=files).text
+
+    # question is empty, respond with default message
+    if question is None or len(question) == 0:
         return jsonify("This is the server of nao.")
     
+    # load german spacy model
     nlp = spacy.load("de_core_news_sm")
-    doc = nlp(question)
-    found_words = sentence_algorithm.sentence_detection(doc)
-    i = 0
-    while i < len(found_words):
-        found_words[i] = found_words[i].lower()
+
+    # annotes question with the german spacy model; adds tokens to words...
+    processed_question = nlp(question)
+
+    # removes irrelevant words and punctuation from question
+    found_words = sentence_algorithm.sentence_detection(processed_question)
+
+    # get generic form of each word
+    for i, word in enumerate(found_words):
+        found_words[i] = word.lower()
         wd = db_connector.get_generic_term(found_words[i], cursor)
-        if wd is None:
-            i += 1
-            continue
-        found_words[i] = wd
-        i += 1
+        if wd is not None:
+            found_words[i] = wd
+
+    # based on weight of each word, get the caseID of the most relevant answer
     caseID = counter.count_ids(found_words, cursor)
     if caseID is None:
         return jsonify("Ich habe diese Frage nicht verstanden oder ich habe dazu leider keine Antwort.")
+    
+    # get answer with caseID from database
     answer = db_connector.get_answer(caseID, cursor)
     if answer is None:
         return jsonify("-1")
+    
     return answer
