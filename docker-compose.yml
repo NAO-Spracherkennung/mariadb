@@ -6,33 +6,5 @@ services:
     environment:
       - MYSQL_ROOT_USERNAME=${DB_USER}
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
-
-  transcriber:
-    image: deniskasak/uni-nao:transcriber
-    restart: always
-    environment:
-      WHISPER_MODEL: base
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:5000/" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  webserver:
-    image: deniskasak/uni-nao:webserver
-    restart: always
-    depends_on:
-      mariadb:
-        condition: service_started
-      transcriber:
-        condition: service_healthy
     ports:
-      - "5001:5000"
-    environment:
-      - TRANSCRIBER_HOST=${TRANSCRIBER_HOST}
-      - TRANSCRIBER_PORT=${TRANSCRIBER_PORT}
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
-      - DB_DATABASE=${DB_DBNAME}
+      - 3306:3306

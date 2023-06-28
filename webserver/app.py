@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
-import os
 import spacy
 from flask import request, jsonify, Flask
 from db_util import getDbConnection
@@ -10,15 +9,14 @@ from weighting import setup as weighting_setup
 import counter
 import db_connector
 import sentence_algorithm
-import requests
-
-TRANSCRIBER_HOST = os.getenv("TRANSCRIBER_HOST", "127.0.0.1")
-TRANSCRIBER_PORT = os.getenv("TRANSCRIBER_PORT", "5002")
+import whisper
+from transcription import transcribe
 
 cursor = getDbConnection()
 weighting_setup(cursor)
 # load german spacy model
 nlp = spacy.load("de_core_news_sm")
+whisper_model = whisper.load_model("base")
 app = Flask(__name__)
 
 
@@ -28,9 +26,13 @@ def post_request():
     # get audio with question from POST request
     files = {'file': request.files['file']}
 
+    # save file to disk
+    filename = "audio"
+    with open(filename, 'wb') as f:
+        f.write(files['file'].read())
+
     # get audio transcription from transcriber
-    question = requests.post(
-        url='http://'+TRANSCRIBER_HOST+':'+TRANSCRIBER_PORT+'/', files=files).text
+    question = transcribe(filename, whisper_model)
 
     # question is empty, respond with default message
     if question is None or len(question) == 0:
