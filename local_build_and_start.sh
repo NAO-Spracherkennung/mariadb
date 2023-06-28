@@ -1,9 +1,22 @@
 #!/bin/sh
 
-docker-compose up -d
+# MariaDB Docker bauen
+cd mariadb
+docker build -t uni-nao-mariadb .
+cd ..
 
+# MariaDB Docker starten
+docker-compose --env-file .env up -d
+
+# Virtuellen Python3 Interpreter installieren
+python3 -m venv .venv
+
+# Virtuellen Python3 Interpreter aktivieren
+source .venv/bin/activate
+
+# Webserver dependencies installieren
 pip install -r webserver/requirements.txt
 
+# Webserver starten
 cd webserver
-
 python3 -m flask run
