@@ -19,4 +19,4 @@ pip install -r webserver/requirements.txt
 
 # Webserver starten
 cd webserver
-python3 -m flask run
+python -m flask run
