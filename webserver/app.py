@@ -9,14 +9,13 @@ from weighting import setup as weighting_setup
 import counter
 import db_connector
 import sentence_algorithm
-import whisper
 from transcription import transcribe
+import time
 
 cursor = getDbConnection()
 weighting_setup(cursor)
 # load german spacy model
 nlp = spacy.load("de_core_news_sm")
-whisper_model = whisper.load_model("base")
 app = Flask(__name__)
 
 
@@ -26,13 +25,23 @@ def post_request():
     # get audio with question from POST request
     files = {'file': request.files['file']}
 
-    # save file to disk
+    # create binary file "audio" if it doesnt exist
     filename = "audio"
     with open(filename, 'wb') as f:
         f.write(files['file'].read())
+    f.close()
+
+    # measure time
+    start = time.time()
 
     # get audio transcription from transcriber
-    question = transcribe(filename, whisper_model)
+    question = transcribe(filename)
+
+    # measure time
+    end = time.time()
+
+    # print time
+    print("Time: " + str(end - start))
 
     # question is empty, respond with default message
     if question is None or len(question) == 0:

@@ -1,7 +1,9 @@
 import whisper
 
+model = whisper.load_model("base")
+print("Model loaded")
 
-def transcribe(filename, model: whisper.Whisper):
+def transcribe(filename):
 
     # Audio laden and auf 30 Sekunden erhöhen
     audio = whisper.load_audio(filename)
