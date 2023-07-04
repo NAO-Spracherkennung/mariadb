@@ -3,7 +3,7 @@ from pydub import AudioSegment
 import librosa
 
 # Define the directory with your audio files and noise file
-audio_dir = 'female_age25_german_russian_accent/Labor/mit_stopps/'
+audio_dir = 'male_age20_german_native/Labor/ohne_stopps/'
 noise_file = 'hintegrund_konversation.mp3'
 
 # Load the noise audio file
@@ -26,6 +26,6 @@ for filename in os.listdir(audio_dir):
     mixed = audio.overlay(noise_cut)
 
     # Save the result
-    mixed.export(f"female_age25_german_russian_accent/noisy/mit_stopps/{filename}", format='wav')
+    mixed.export(f"male_age20_german_native/noisy/ohne_stopps/{filename}", format='wav')
 
 print("All audio files processed successfully.")
