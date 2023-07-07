@@ -18,31 +18,7 @@ weighting_setup(cursor)
 nlp = spacy.load("de_core_news_sm")
 app = Flask(__name__)
 
-
-@app.route('/', methods=['POST'])
-def post_request():
-
-    # get audio with question from POST request
-    files = {'file': request.files['file']}
-
-    # create binary file "audio" if it doesnt exist
-    filename = "audio"
-    with open(filename, 'wb') as f:
-        f.write(files['file'].read())
-    f.close()
-
-    # measure time
-    start = time.time()
-
-    # get audio transcription from transcriber
-    question = transcribe(filename)
-
-    # measure time
-    end = time.time()
-
-    # print time
-    print("Time: " + str(end - start))
-
+def get_answer(question):
     # question is empty, respond with default message
     if question is None or len(question) == 0:
         return jsonify("This is the server of nao.")
@@ -71,3 +47,36 @@ def post_request():
         return jsonify("-1")
 
     return answer
+
+
+@app.route('/', methods=['POST'])
+def post_request():
+
+    # get audio with question from POST request
+    files = {'file': request.files['file']}
+
+    # create binary file "audio" if it doesnt exist
+    filename = "audio"
+    with open(filename, 'wb') as f:
+        f.write(files['file'].read())
+    f.close()
+
+    # measure time
+    start = time.time()
+
+    # get audio transcription from transcriber
+    question = transcribe(filename)
+
+    # measure time
+    end = time.time()
+
+    # print time
+    print("Time: " + str(end - start))
+
+    return get_answer(question)
+    
+@app.route('/', methods=['GET'])
+def get_request():
+    question = request.args.get('question')
+
+    return get_answer(question)
