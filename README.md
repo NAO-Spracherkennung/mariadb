@@ -6,9 +6,6 @@ https://www.aldebaran.com/developer-center/index.html
 - in recovery mode von mac ins terminal gehen und ```csrutil disable``` ausführen
 - computer neustarten
 - Choregraphe aus der Binaries zip mit ```./choregraphe``` öffnen
-- Choregraphe schließen
-- in recovery mode von mac ins terminal gehen und ```csrutil enable``` ausführen
-- neustarten
 - Choregraphe nutzen
 
 ### Troubleshooting
@@ -23,3 +20,6 @@ Voraussetzungen:
 \
 Setup und Start wird mit folgender Kommandozeile durchgeführt:\
 `./local_build_and_start.sh
+
+## Nach dem Projekt (Mac)
+- ```csrutil enable``` in recovery mode ausführen, um wieder mehr Sicherheit im Mac zu schaffen
