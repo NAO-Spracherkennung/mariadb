@@ -1,11 +1,25 @@
 # NAO Developer Center mit Downloads und API Reference
 https://www.aldebaran.com/developer-center/index.html
 
-# Deployment und Starten des Backends
+## Choregraphe installieren (Mac)
+- Neueste Choregraphe Mac Binaries herunterladen (2.8.6 hat funktioniert)
+- in recovery mode von mac ins terminal gehen und ```csrutil disable``` ausführen
+- computer neustarten
+- Choregraphe aus der Binaries zip mit ```./choregraphe``` öffnen
+- Choregraphe schließen
+- in recovery mode von mac ins terminal gehen und ```csrutil enable``` ausführen
+- neustarten
+- Choregraphe nutzen
 
-Voraussetzungen:\
-- Docker ist installiert und läuft\
+### Troubleshooting
+- Wenn eine Meldung kommt, dass QtCore.framework beschädigt ist, dann muss in recovery mode terminal ```csrutil disable``` gemacht werden
+- Wenn eine Meldung kommt, ...nicht verifizierte Entwickler... dann ```sudo spctl --master-disable``` in normalem Terminal
+
+## Deployment und Starten des Backends
+
+Voraussetzungen:
+- Docker ist installiert und läuft
 - python3 ist installiert und kann mit python3 aufgerufen werden\
 \
 Setup und Start wird mit folgender Kommandozeile durchgeführt:\
-`./local_build_and_start.sh`\
+`./local_build_and_start.sh
