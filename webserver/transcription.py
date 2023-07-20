@@ -1,6 +1,6 @@
 import whisper
 
-model = whisper.load_model("base")
+model = whisper.load_model("tiny")
 print("Model loaded")
 
 def transcribe(filename):

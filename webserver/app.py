@@ -71,12 +71,19 @@ def post_request():
     end = time.time()
 
     # print time
+    print("--------------------")
     print("Time: " + str(end - start))
+    print("Question: " + question)
+    print("--------------------")
 
     return get_answer(question)
     
 @app.route('/', methods=['GET'])
 def get_request():
     question = request.args.get('question')
+
+    print("--------------------")
+    print("Question: " + question)
+    print("--------------------")
 
     return get_answer(question)

@@ -1,7 +1,7 @@
 version: '3'
 services:
   mariadb:
-    image: deniskasak/uni-nao:mariadb
+    image: uni-nao:mariadb
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
